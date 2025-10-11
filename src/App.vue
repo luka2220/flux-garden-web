@@ -5,7 +5,11 @@ import Feed from "./components/Feed.vue";
 </script>
 
 <template>
-  <h1>Flux Garden Web Client</h1>
+  <header>
+    <h1>Flux Garden Web Client</h1>
+  </header>
 
-  <Feed msg="Flux garden rss feed reader 🪴" />
+  <section>
+    <Feed msg="Flux garden rss feed reader 🪴" />
+  </section>
 </template>

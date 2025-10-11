@@ -1,4 +1,4 @@
-type RssType = {
+export type RssType = {
   name: string;
   link: `https://${string}`;
 };
