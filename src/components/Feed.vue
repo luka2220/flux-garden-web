@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { ref } from "vue";
 import { RssFeedMock, type RssType } from "../mocks/_feed";
 
 // props
@@ -25,41 +25,34 @@ function addToFeed() {
 
   createFeed.value = { link: "", name: "" };
 }
-
-const greaterThan20 = computed(() => {
-  return feed.value.length > 20 ? "Yes" : "No";
-});
 </script>
 
 <template>
-  <h3>{{ msg }}</h3>
-  <h3>RSS Feed</h3>
-
-  <div>
-    <h3>Is feed greater than 20</h3>
-    <p>{{ greaterThan20 }}</p>
-  </div>
+  <h3 class="text-3xl text-flux-green mt-3">{{ msg }}</h3>
 
   <!-- RSS Form UI -->
-  <form @submit.prevent="addToFeed">
+  <form class="mt-10" @submit.prevent="addToFeed">
     <label for="name">Name</label>
     <input id="name" type="text" v-model="createFeed.name" />
 
     <label for="link">Link</label>
     <input id="link" type="text" v-model="createFeed.link" />
 
-    <Button type="submit" label="Save" icon="pi pi-check" iconPos="right" />
+    <button type="submit">Save</button>
   </form>
 
   <!-- RSS Feed UI -->
-  <DataView :value="feed" layout="list">
-    <template #list="slotProps">
-      <div class="flex flex-col">
-        <div v-for="(item, index) in feed" :key="index">
-          <h3>{{ item.name }}</h3>
-          <a :href="`${item.link}`">rss</a>
-        </div>
-      </div>
-    </template>
-  </DataView>
+  <div
+    class="w-3/4 mx-auto border-4 border-flux-light-blue rounded-xl mt-14 bg-flux-green"
+  >
+    <div
+      class="h-24 flex flex-row items-center p-5"
+      :class="index + 1 !== feed.length && 'border-b-4 border-flux-brown'"
+      v-for="(item, index) in feed"
+      :key="index"
+    >
+      <p class="title-theme px-2">{{ item.name }}</p>
+      <a class="rss-link px-2" :href="`${item.link}`" target="_blank">rss</a>
+    </div>
+  </div>
 </template>
