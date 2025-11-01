@@ -1,9 +1,5 @@
-import { atom, useAtom } from "jotai";
-
-interface Feed {
-  name: string;
-  link: string;
-}
+import { atom, useAtom } from 'jotai';
+import type { Feed } from '../types/feed';
 
 const feedAtom = atom<Feed[]>([]);
 

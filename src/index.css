@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 /* Global tailwind styling */
 @theme {
@@ -8,17 +8,16 @@
   --color-flux-beige: #f5d3c4;
   --color-flux-green: #5d866c;
   --color-flux-brown: #896c6c;
+  --color-flux-burgandy: #703b3b;
+  --color-flux-light-burgandy: #ad5e5e;
 
   /* Fonts*/
-  --font-sana: "Poppins", sans-serif;
+  --font-sana: 'Poppins', sans-serif;
 }
 
-/* Custom global themeing */
-@layer components {
-  .title-theme {
-    @apply text-2xl text-flux-beige italic;
-  }
-  .rss-link {
-    @apply hover:text-blue-400 hover:underline;
+/* Default stylings */
+@layer base {
+  html {
+    color: var(--color-flux-beige);
   }
 }

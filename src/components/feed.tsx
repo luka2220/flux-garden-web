@@ -1,14 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import useFeedStoreAtom from '../store/feed-store';
-// import axiosInstance, { endpoints } from '../config/axios-config';
-import axios from 'axios';
-
-interface Feed {
-  name: string;
-  link: string;
-  id: string;
-  createdAt: string;
-}
+import axiosInstance, { endpoints } from '../config/axios-config';
+import type { Feed } from '../types/feed';
+import FeedCard from './feed-card';
+import InputForm from './input';
 
 export default function Feed() {
   const [feed, setFeed] = useFeedStoreAtom();
@@ -16,11 +11,11 @@ export default function Feed() {
   const { isError, error, isLoading } = useQuery({
     queryKey: ['feed'],
     queryFn: async () => {
-      // const { data } = await axiosInstance.get(endpoints.feed);
-      const { data } = await axios.get('http://localhost:8000/feed/');
+      const { data } = await axiosInstance.get(endpoints.feed);
+      // const { data } = await axios.get('http://localhost:8000/feed/');
       console.info('ServerData:', data);
 
-      const feedData = data?.results as Feed[];
+      const feedData = data as Feed[];
       setFeed(feedData);
 
       return feedData;
@@ -33,10 +28,7 @@ export default function Feed() {
     ) : (
       <div>
         {feed.map((f) => (
-          <div>
-            <p>{f.name}</p>
-            <p>{f.link}</p>
-          </div>
+          <FeedCard feed={f} key={f.id} />
         ))}
       </div>
     );
@@ -48,10 +40,11 @@ export default function Feed() {
   }
 
   return (
-    <div>
-      <p className="text-xl text-flux-dark-blue">Feed</p>
-
-      {isLoading ? <p>Fetching data</p> : renderFeed()}
+    <div className="flex flex-row justify-center">
+      <div className="w-full max-w-3xl px-4">
+        <InputForm />
+        {isLoading ? <p>Fetching data</p> : renderFeed()}
+      </div>
     </div>
   );
 }

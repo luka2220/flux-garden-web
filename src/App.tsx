@@ -1,9 +1,10 @@
-import Feed from "./components/feed";
+import Feed from './components/feed';
+import Nav from './components/nav';
 
 function App() {
   return (
     <>
-      <p className="text-2xl text-flux-brown"> Flux Garden Web Client</p>
+      <Nav />
 
       <Feed />
     </>
