@@ -6,6 +6,7 @@ const axiosInstance = axios.create({
 
 export const endpoints = {
   feed: '/feed',
+  feedContent: (id: string) => `/feed/${id}`,
 };
 
 export default axiosInstance;

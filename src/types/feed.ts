@@ -4,4 +4,22 @@ export interface Feed {
   link: string;
   id: string;
   createdAt: string;
+  updatedAt: string;
+}
+
+interface ParsedFeed {
+  title: string;
+  link: string;
+  content_html: string;
+}
+
+/** Represents feed content data */
+export interface FeedContent {
+  item: Feed;
+  content: {
+    title: string;
+    link: string;
+    description: string;
+    feed: ParsedFeed[];
+  };
 }

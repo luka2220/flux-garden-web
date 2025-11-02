@@ -1,13 +1,26 @@
-import Feed from './components/feed';
-import Nav from './components/nav';
+import Feeds from './pages/Feed';
+import FeedContent from './pages/FeedContent';
+import Nav from './components/ui/nav';
+import { BrowserRouter, Route, Routes } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <>
-      <Nav />
+    <BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <Nav />
 
-      <Feed />
-    </>
+        <Routes>
+          {/* Home */}
+          <Route path="/" element={<Feeds />} />
+
+          {/* Feed Content */}
+          <Route path="/feed/:id" element={<FeedContent />} />
+        </Routes>
+      </QueryClientProvider>
+    </BrowserRouter>
   );
 }
 

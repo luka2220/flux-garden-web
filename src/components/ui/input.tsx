@@ -1,39 +1,11 @@
 import { useState } from 'react';
 
-interface InputFormProps {
-  onSubmit?: (payload: { name: string; link: string }) => void;
-}
-
-export default function InputForm({ onSubmit }: InputFormProps) {
+export default function InputForm() {
   const [name, setName] = useState('');
   const [link, setLink] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const trimmedName = name.trim();
-    const trimmedLink = link.trim();
-    if (!trimmedName || !trimmedLink) return;
-
-    const normalizedLink = /^https?:\/\//i.test(trimmedLink)
-      ? trimmedLink
-      : `https://${trimmedLink}`;
-
-    if (onSubmit) {
-      onSubmit({ name: trimmedName, link: normalizedLink });
-    } else {
-      console.log('Submitted feed:', {
-        name: trimmedName,
-        link: normalizedLink,
-      });
-    }
-
-    setName('');
-    setLink('');
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="mb-6">
+    <form className="mb-6">
       <fieldset className="grid grid-cols-1 md:grid-cols-[1fr_auto] gap-3">
         <legend className="sr-only">Add a new feed</legend>
 
@@ -157,10 +129,7 @@ export default function InputForm({ onSubmit }: InputFormProps) {
         </div>
 
         <div className="flex items-center">
-          <button
-            type="submit"
-            className="inline-flex items-center gap-2 bg-flux-dark-blue hover:bg-flux-light-blue text-white font-medium px-4 py-3 rounded-2xl shadow-md transition"
-          >
+          <button className="inline-flex items-center gap-2 bg-flux-dark-blue hover:bg-flux-light-blue text-white font-medium px-4 py-3 rounded-2xl shadow-md transition">
             <svg
               className="w-4 h-4"
               viewBox="0 0 24 24"
