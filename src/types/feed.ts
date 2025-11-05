@@ -7,7 +7,8 @@ export interface Feed {
   updatedAt: string;
 }
 
-interface ParsedFeed {
+/** Represents a parsed feed item */
+export interface ParsedFeed {
   title: string;
   link: string;
   content_html: string;

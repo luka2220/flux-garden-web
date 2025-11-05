@@ -78,37 +78,38 @@ export default function FeedContent() {
     });
   };
 
-  // Helper function to decode HTML entities
   const decodeHtmlEntities = (html: string): string => {
     const textarea = document.createElement('textarea');
     textarea.innerHTML = html;
     return textarea.value;
   };
 
-  // Helper function to check if a string contains HTML tags
   const containsHtml = (text: string): boolean => {
     const htmlRegex = /<[a-z][\s\S]*>/i;
     return htmlRegex.test(text);
   };
 
-  // Helper function to render content (either HTML or plain text)
-  const renderContent = (content: string) => {
-    // First, decode any HTML entities
+  const renderContent = (content: string, title: string) => {
     const decoded = decodeHtmlEntities(content);
 
-    // Check if it's actually HTML
     if (containsHtml(decoded)) {
+      // TODO: Render the feed content item in a seperate page if it contains HTML
       return (
+        // <div
+        //   className="prose prose-invert max-w-none text-flux-beige/90 leading-relaxed"
+        //   dangerouslySetInnerHTML={{ __html: decoded }}
+        //   style={{
+        //     color: 'var(--color-flux-beige)',
+        //   }}
+        // />
         <div
           className="prose prose-invert max-w-none text-flux-beige/90 leading-relaxed"
-          dangerouslySetInnerHTML={{ __html: decoded }}
-          style={{
-            color: 'var(--color-flux-beige)',
-          }}
-        />
+          onClick={() => navigate(`/feed/${id}/${title}`)}
+        >
+          {/* <FeedContentItem content:decoded /> */}
+        </div>
       );
     } else {
-      // Render as plain text
       return (
         <p className="text-flux-beige/90 leading-relaxed whitespace-pre-wrap">
           {decoded}
@@ -120,7 +121,6 @@ export default function FeedContent() {
   return (
     <div className="flex flex-row justify-center">
       <div className="w-full max-w-4xl px-4 pb-8">
-        {/* Back Button */}
         <button
           onClick={() => navigate('/')}
           className="mt-6 mb-4 text-flux-light-blue hover:text-flux-beige transition-colors duration-200"
@@ -227,7 +227,8 @@ export default function FeedContent() {
                     </a>
                   )}
                 </div>
-                {feedItem.content_html && renderContent(feedItem.content_html)}
+                {feedItem.content_html &&
+                  renderContent(feedItem.content_html, feedItem.title)}
               </article>
             ))
           )}
